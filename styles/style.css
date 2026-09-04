@@ -3,9 +3,9 @@
   min-block-size: 100vh;
   font-family: var(--main-font);
   font-weight: var(--card-text-weight);
-  font-variation-settings: "wght" var(--card-text-weight);
+  font-variation-settings: 'wght' var(--card-text-variation);
   color: var(--accent-color);
-  background-color: #e7e7e7;
+  background-color: var(--page-bg-color);
   background-image: var(--page-gradient);
   background-attachment: fixed;
   background-size: cover;
@@ -19,18 +19,26 @@
 .header {
   display: flex;
   justify-content: center;
-  padding-block: clamp(3.125rem, 1.2rem + 6.5vw, 6.25rem);
+  padding-block-start: clamp(3.125rem, 1.2rem + 6.5vw, 6.125rem);
+  padding-block-end: clamp(3.125rem, 1.2rem + 6.5vw, 6rem);
 }
 
 .header__box {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* В макете обводка снаружи: 704px при контенте 700px */
+  inline-size: min(calc(var(--content-width) + 4px), 100%);
   border: 2px solid var(--accent-color);
   background-color: var(--page-background);
-  min-block-size: clamp(20.4375rem, 19.705rem + 3.661vw, 23rem);
   padding-inline: 12px;
+  /* Пустое место снизу как в макете, высота растёт вместе с текстом */
+  padding-bottom: 127px;
   text-align: center;
+}
+
+.header__box.content-width {
+  inline-size: min(calc(var(--content-width) + 4px), 100%);
 }
 
 .header__logo {
@@ -61,7 +69,8 @@
 .cards {
   display: flex;
   flex-direction: column;
-  gap: 51px;
+  /* В макете 50px между внешними границами карточек */
+  gap: 50px;
 }
 
 .card {
@@ -72,12 +81,11 @@
 }
 
 .card__title {
-  padding: 5px 10px;
+  padding: 6px 10px;
   border-bottom: 2px solid var(--accent-color);
   font-size: 18px;
-  font-weight: var(--card-title-weight);
-  line-height: 1.21;
-  font-variation-settings: "wght" var(--card-title-weight);
+  line-height: 1;
+  font-variation-settings: 'wght' var(--card-title-weight);
 }
 
 .card__image-wrapper {
@@ -171,12 +179,14 @@
   border: 2px solid var(--accent-color);
   background-color: var(--page-background);
   font-family: var(--accent-font);
+  font-size: 14px;
+  line-height: 1;
   cursor: pointer;
   transition: box-shadow 0.3s ease;
 }
 
 .button::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   right: 0;
@@ -189,7 +199,6 @@
 
 .button:focus {
   outline: none;
-  box-shadow: 2px 2px 0 var(--accent-color);
 }
 
 .button:focus-visible {
@@ -215,7 +224,6 @@
   width: 130px;
   height: 40px;
   padding: 0;
-  font-size: 14px;
 }
 
 .save-button {
@@ -224,14 +232,27 @@
   justify-content: center;
   gap: 8px;
   padding: 14px 20px;
-  font-size: 14px;
+  /* В макете 334px по центру; nowrap, чтобы PressStart2P не переносился */
+  inline-size: 334px;
+  max-inline-size: calc(100% - 70px);
+  white-space: nowrap;
+}
+
+.save-button.content-width {
+  /* Перебивает .content-width (700px), иначе кнопка растягивается на всю колонку */
+  inline-size: 334px;
 }
 
 .save-button__icon {
   position: relative;
   z-index: 1;
+  display: block;
+  flex-shrink: 0;
+  overflow: visible;
   width: 21px;
   height: 21px;
+  min-width: 21px;
+  min-height: 21px;
   color: var(--button-text-color);
   mix-blend-mode: difference;
 }
@@ -239,7 +260,7 @@
 .footer {
   display: flex;
   justify-content: center;
-  padding-top: 53px;
+  padding-top: 50px;
   padding-bottom: 103px;
 }
 
@@ -285,7 +306,6 @@
 
 .modal__close {
   padding: 10px 0;
-  font-size: 14px;
   text-transform: uppercase;
 }
 
@@ -321,23 +341,67 @@
   filter: saturate(0.35) contrast(1.4);
 }
 
+/* Жёсткие пиксели под PerfectPixel: ширина 1440 и DPR 1 */
+@media (width >= 1440px) {
+  .content-width {
+    inline-size: 700px;
+  }
+
+  .header {
+    padding-block-start: 98px;
+    padding-block-end: 96px;
+  }
+
+  .header__box.content-width {
+    inline-size: 704px;
+  }
+
+  .header__logo {
+    /* Глифы PressStart2P в браузере сидят на 2px выше, чем в PNG макета */
+    padding-top: 130px;
+    font-size: 65px;
+  }
+
+  .header__title {
+    /* Компенсация +2px у логотипа, чтобы подзаголовок остался на y=315 */
+    padding-top: 18px;
+    font-size: 23px;
+  }
+
+  .save-button.content-width {
+    inline-size: 334px;
+  }
+
+  .save-button__icon {
+    width: 21px;
+    height: 21px;
+    min-width: 21px;
+    min-height: 21px;
+  }
+}
+
 @media (width <= 375px) {
   .content-width {
     inline-size: 100%;
   }
 
   .header {
-    padding-block-start: 0;
-    padding-block-end: 50px;
+    padding-block-start: 100px;
+    padding-block-end: 100px;
   }
 
   .header__logo {
-    padding-top: 80px;
+    padding-top: 120px;
     font-size: 49px;
   }
 
   .header__box {
     border-inline: none;
+    padding-bottom: 117px;
+  }
+
+  .header__box.content-width {
+    inline-size: 100%;
   }
 
   .card {
@@ -354,13 +418,17 @@
     padding-bottom: 80px;
   }
 
-  .save-button {
+  .save-button,
+  .save-button.content-width {
     flex-direction: column;
     gap: 10px;
+    inline-size: 305px;
   }
 
   .save-button__icon {
     width: 28px;
     height: 28px;
+    min-width: 28px;
+    min-height: 28px;
   }
 }
