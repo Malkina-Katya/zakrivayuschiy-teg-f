@@ -590,44 +590,44 @@
           </li>
         </ul>
       </section>
-    </main>
-    <footer class="footer">
-      <button
-        class="button save-button content-width"
-        type="button"
-        onclick="modal.showModal()"
-      >
-        <svg
-          class="save-button__icon"
-          width="21"
-          height="21"
-          viewbox="0 0 40 40"
-          aria-hidden="true"
+      <div class="save">
+        <button
+          class="button save-button content-width"
+          type="button"
+          onclick="modal.showModal()"
         >
-          <use href="./svg/floppy.svg#floppy" width="40" height="40"></use>
-        </svg>
-        <span class="button__text">Сохранить на память</span>
-      </button>
-    </footer>
-    <dialog class="modal" id="modal" aria-labelledby="modal-title">
-      <div class="modal__row">
-        <svg
-          class="modal__icon"
-          width="39"
-          height="39"
-          viewbox="0 0 40 40"
-          aria-hidden="true"
-        >
-          <use href="./svg/floppy.svg#floppy" width="40" height="40"></use>
-        </svg>
-        <p class="modal__text" id="modal-title">
-          Вставьте дискету, чтобы продолжить
-        </p>
+          <svg
+            class="save-button__icon"
+            width="21"
+            height="21"
+            viewbox="0 0 40 40"
+            aria-hidden="true"
+          >
+            <use href="./svg/floppy.svg#floppy" width="40" height="40"></use>
+          </svg>
+          <span class="button__text">Сохранить на память</span>
+        </button>
       </div>
-      <button class="button modal__close" type="button" onclick="modal.close()">
-        <span class="button__text">ОК</span>
-      </button>
-    </dialog>
+      <dialog class="modal" id="modal" aria-labelledby="modal-title">
+        <div class="modal__row">
+          <svg
+            class="modal__icon"
+            width="40"
+            height="40"
+            viewbox="0 0 40 40"
+            aria-hidden="true"
+          >
+            <use href="./svg/floppy.svg#floppy" width="40" height="40"></use>
+          </svg>
+          <p class="modal__text" id="modal-title">
+            Вставьте дискету, чтобы продолжить
+          </p>
+        </div>
+        <button class="button modal__close" type="button" onclick="modal.close()">
+          <span class="button__text">ОК</span>
+        </button>
+      </dialog>
+    </main>
     <script src="./scripts/like.js"></script>
   </body>
 </html>
